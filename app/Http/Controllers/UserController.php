@@ -9,6 +9,16 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+        $data = [
+            "users" => $users
+        ];
+
+        return view('users.index', $data);
+    }
+
     public function create()
     {
         $role = Role::all();
@@ -28,6 +38,32 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);  // Gunakan Hash::make untuk hashing password
         $user->role_id = $request->role;
+        $user->save();
+
+        return redirect('/user')->with('success', 'User created successfully!');
+    }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+        $data = [
+            "user"  => $user
+        ];
+
+        return view('user.edit', $data);
+    }
+
+    public function update(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $request->id,
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
         $user->save();
 
         return redirect('/user')->with('success', 'User created successfully!');
