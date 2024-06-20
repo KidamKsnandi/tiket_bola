@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <div>
     <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
 </div>
@@ -55,3 +56,8 @@
 </div>
 @endsection
 >>>>>>> user/update
+=======
+<div>
+    <!-- Be present above all else. - Naval Ravikant -->
+</div>
+>>>>>>> user/delete

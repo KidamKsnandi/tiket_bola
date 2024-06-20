@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!-- resources/views/users/create.blade.php -->
 
 <!DOCTYPE html>
@@ -58,3 +59,8 @@
     <!-- I have not failed. I've just found 10,000 ways that won't work. - Thomas Edison -->
 </div>
 >>>>>>> user/update
+=======
+<div>
+    <!-- Smile, breathe, and go slowly. - Thich Nhat Hanh -->
+</div>
+>>>>>>> user/delete
