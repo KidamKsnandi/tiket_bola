@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- resources/views/users/create.blade.php -->
 
 <!DOCTYPE html>
@@ -52,3 +53,8 @@
     </form>
 </body>
 </html>
+=======
+<div>
+    <!-- I have not failed. I've just found 10,000 ways that won't work. - Thomas Edison -->
+</div>
+>>>>>>> user/update
