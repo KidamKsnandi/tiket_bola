@@ -16,13 +16,13 @@ class UserController extends Controller
             "users" => $users
         ];
 
-        return view('users.index', $data);
+        return view('admin.users.index', $data);
     }
 
     public function create()
     {
         $role = Role::all();
-        return view('user.create', compact('role'));
+        return view('admin.users.create', compact('role'));
     }
     public function store(Request $request)
     {
@@ -40,7 +40,7 @@ class UserController extends Controller
         $user->role_id = $request->role;
         $user->save();
 
-        return redirect('/user')->with('success', 'User created successfully!');
+        return redirect('/admin/user-admin')->with('success', 'User created successfully!');
     }
 
     public function edit($id)
@@ -50,7 +50,7 @@ class UserController extends Controller
             "user"  => $user
         ];
 
-        return view('user.edit', $data);
+        return view('admin.users.edit', $data);
     }
 
     public function update(Request $request)
@@ -77,6 +77,6 @@ class UserController extends Controller
         }
 
         $User->delete();
-        return redirect()->route('user.index')->with(['Berhasil', 'Data berhasil dihapus']);
+        return redirect()->route('user-admin.index')->with(['Berhasil', 'Data berhasil dihapus']);
     }
 }
