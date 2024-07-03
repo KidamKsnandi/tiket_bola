@@ -46,27 +46,32 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        $role = Role::all();
         $data = [
-            "user"  => $user
+            "user"  => $user,
+            "role"  => $role
         ];
 
         return view('admin.users.edit', $data);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $request->id,
+            'password' => 'required|min:6',
         ]);
 
-        $user = new User();
+        $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role_id = $request->role;
         $user->save();
 
-        return redirect('/user')->with('success', 'User created successfully!');
+        return redirect('/admin/user-admin')->with('success', 'User created successfully!');
     }
 
     public function destroy($id)

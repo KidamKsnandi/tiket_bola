@@ -32,7 +32,8 @@
                             <i class="ti ti-mail fs-6"></i>
                             <p class="mb-0 fs-3">Akun Saya</p>
                         </a>
-                        <a href="" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                        <a href="{{ route('admin.logout') }}"
+                            class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                     </div>
                 </div>
             </li>

@@ -12,7 +12,8 @@ class ClubController extends Controller
      */
     public function index()
     {
-        //
+        $clubs = Club::all();
+        return view('admin.clubs.index', compact('clubs'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ClubController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.clubs.create');
     }
 
     /**
@@ -28,7 +29,22 @@ class ClubController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'logo' => 'required|image|mimes:jpg,jpeg,png',
+        ]);
+
+        $club = new Club();
+        $club->nama = $validatedData['nama'];
+        if ($request->hasFile('logo')) {
+            $image = $request->logo;
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('images/clubs/', $name);
+            $club->logo = $name;
+        }
+        $club->save();
+
+        return redirect()->route('club.index')->with('status', 'Club created successfully!');
     }
 
     /**
@@ -36,7 +52,7 @@ class ClubController extends Controller
      */
     public function show(Club $club)
     {
-        //
+        return view('admin.clubs.show', compact('club'));
     }
 
     /**
@@ -44,7 +60,7 @@ class ClubController extends Controller
      */
     public function edit(Club $club)
     {
-        //
+        return view('admin.clubs.edit', compact('club'));
     }
 
     /**
@@ -52,7 +68,23 @@ class ClubController extends Controller
      */
     public function update(Request $request, Club $club)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png',
+        ]);
+
+        $club = Club::find($club->id);
+        $club->nama = $validatedData['nama'];
+        if ($request->hasFile('logo')) {
+            $club->deleteLogo();
+            $image = $request->logo;
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('images/clubs/', $name);
+            $club->logo = $name;
+        }
+        $club->save();
+
+        return redirect()->route('club.index')->with('status', 'Club updated successfully!');
     }
 
     /**
@@ -60,6 +92,7 @@ class ClubController extends Controller
      */
     public function destroy(Club $club)
     {
-        //
+        $club->delete();
+        return redirect()->route('club.index')->with('status', 'Club deleted successfully!');
     }
 }
