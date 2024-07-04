@@ -17,10 +17,11 @@ return new class extends Migration
             $table->bigInteger('id_club_2')->unsigned();
             $table->string('keterangan');
             $table->date('tanggal_tanding');
-            $table->text('alamat_stadion');
+            $table->bigInteger('id_stadion')->unsigned();
             $table->timestamps();
             $table->foreign('id_club_1')->references('id')->on('clubs');
             $table->foreign('id_club_2')->references('id')->on('clubs');
+            $table->foreign('id_stadion')->references('id')->on('stadions');
         });
     }
 

@@ -325,7 +325,7 @@
                                 <h6>semi final - garuda fc vs mamang fc</h6>
                                 <div class="price">
                                     <h6>Rp.250.000</h6>
-                                    <h6 class="l-through">$300.00o</h6>
+                                    <h6 class="l-through">Rp.300.00o</h6>
                                 </div>
                                 <div class="prd-bottom">
                                     <a href="" class="social-info">
