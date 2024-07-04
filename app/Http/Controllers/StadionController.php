@@ -34,7 +34,7 @@ class StadionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(stadion $stadion)
+    public function show($id)
     {
         //
     }
@@ -42,7 +42,7 @@ class StadionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(stadion $stadion)
+    public function edit($id)
     {
         //
     }
@@ -50,7 +50,7 @@ class StadionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, stadion $stadion)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -58,7 +58,7 @@ class StadionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(stadion $stadion)
+    public function destroy($id)
     {
         //
     }

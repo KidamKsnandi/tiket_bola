@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\JadwalPertandinganController;
+use App\Http\Controllers\StadionController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
@@ -28,6 +29,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('/user-admin', UserController::class);
     Route::resource('/club', ClubController::class);
+    Route::resource('/stadion', StadionController::class);
     Route::resource('/jadwal-pertandingan', JadwalPertandinganController::class);
     Route::resource('/tiket', TiketController::class);
     Route::resource('/transaksi', TransaksiController::class);
