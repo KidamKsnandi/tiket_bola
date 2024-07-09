@@ -42,9 +42,13 @@ class StadionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit($id)
     {
-        //
+        $stadion = Stadion::findOrfail($id);
+        return view("admin.stadions.index", compact("stadion"));
     }
 
     /**
@@ -52,7 +56,17 @@ class StadionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+        ]);
+
+        $stadion = Stadion::findOrFail($id);
+        $stadion->nama = $request->nama;
+        $stadion->alamat = $request->alamat;
+        $stadion->save();
+
+        return redirect()->route('stadion.index')->with('success', 'Stadion updated successfully');
     }
 
     /**
