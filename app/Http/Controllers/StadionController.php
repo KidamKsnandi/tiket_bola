@@ -85,6 +85,8 @@ class StadionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $stadion = Stadion::findOrfail($id);
+        $stadion->delete();
+        return redirect()->route('stadion.index')->with('status', 'Club deleted successfuly!');
     }
 }
