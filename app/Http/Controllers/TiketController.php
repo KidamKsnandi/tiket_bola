@@ -10,10 +10,10 @@ class TiketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id_jadwal)
     {
         $tiket = Tiket::all();
-        return view("admin.tikets.index", compact("tiket"));
+        return view("admin.tikets.index", compact("tiket", "id_jadwal"));
     }
 
     /**

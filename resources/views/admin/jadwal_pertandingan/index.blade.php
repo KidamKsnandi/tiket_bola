@@ -33,6 +33,10 @@
                                         @csrf
                                         <a href="{{ route('jadwal-pertandingan.edit', $jadwal->id) }}"
                                             class="btn btn-warning"><i class="fas fa-edit"></i></a>
+
+                                        <a href="{{ route('tiket.index', $jadwal->id) }}" class="btn btn-info"
+                                            data-toggle="tooltip" title="Tiket"><i class="fa fa-credit-card"></i></a>
+
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>

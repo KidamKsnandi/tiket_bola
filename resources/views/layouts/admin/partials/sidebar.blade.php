@@ -57,7 +57,7 @@
                         <span class="hide-menu">Jadwal Pertandingan</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('/tiket') ? 'active' : '' }}"
                         href="{{ route('tiket.index') }}" aria-expanded="false">
                         <span>
@@ -65,7 +65,7 @@
                         </span>
                         <span class="hide-menu">Tiket</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Transaksi</span>

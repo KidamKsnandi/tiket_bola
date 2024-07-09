@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="mb-3">
-                    <a href="{{ route('tiket.create') }}" class="btn btn-success float-right">Add Tiket</a>
+                    <a href="{{ route('tiket.create', $id_jadwal) }}" class="btn btn-success float-right">Add Tiket</a>
                 </div>
                 <table class="table table-striped">
                     <thead>

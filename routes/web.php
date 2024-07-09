@@ -8,6 +8,7 @@ use App\Http\Controllers\StadionController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
+use App\Models\JadwalPertandingan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +32,13 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/club', ClubController::class);
     Route::resource('/stadion', StadionController::class);
     Route::resource('/jadwal-pertandingan', JadwalPertandinganController::class);
-    Route::resource('/tiket', TiketController::class);
+    Route::get('/jadwal-pertandingan/{id_jadwal}/tiket', [TiketController::class, 'index'])->name('tiket.index');
+    Route::get('/jadwal-pertandingan/{id_jadwal}/tiket/create', [TiketController::class, 'create'])->name('tiket.create');
+    Route::post('/jadwal-pertandingan/{id_jadwal}/tiket/store', [TiketController::class, 'store'])->name('tiket.store');
+    Route::get('/jadwal-pertandingan/{id_jadwal}/tiket/{id}/edit', [TiketController::class, 'edit'])->name('tiket.edit');
+    Route::put('/jadwal-pertandingan/{id_jadwal}/tiket/{id}/update', [TiketController::class, 'update'])->name('tiket.update');
+    Route::delete('/jadwal-pertandingan/{id_jadwal}/tiket{id}/delete', [TiketController::class, 'delete'])->name('tiket.delete');
+    // Route::resource('/tiket', TiketController::class);
     Route::resource('/transaksi', TransaksiController::class);
     Route::resource('/banner', BannerController::class);
 });
