@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::prefix('admin')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('/user-admin', UserController::class);
@@ -36,7 +36,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('/banner', BannerController::class);
 });
 
-Route::prefix('user')->middleware(['auth'])->group(function () {
+Route::prefix('user')->middleware(['auth', 'user'])->group(function () {
     Route::get('/dashboard', function () {
         return view('user.dashboard');
     })->name('user.dashboard');
