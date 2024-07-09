@@ -1,7 +1,7 @@
 @extends('layouts.admin.index')
 
 @section('content')
-<div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="mb-3">
@@ -19,7 +19,7 @@
                         @foreach ($stadions as $stadion)
                             <tr>
                                 <td>{{ $stadion->nama }}</td>
-                                <td>{{$stadion->alamat}}</td>
+                                <td>{{ $stadion->alamat }}</td>
                                 <td>
                                     <form action="{{ route('stadion.destroy', $stadion->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure you want to delete this stadion?')">
