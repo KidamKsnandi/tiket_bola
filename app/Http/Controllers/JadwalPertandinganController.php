@@ -98,8 +98,10 @@ class JadwalPertandinganController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JadwalPertandingan $jadwalPertandingan)
+    public function destroy($id)
     {
-        //
+        $jadwalPertandingan = JadwalPertandingan::findOrFail($id);
+        $jadwalPertandingan->delete();
+        return redirect()->route('jadwal-pertandingan.index')->with('success', 'Jadwal Pertandingan deleted successfully');
     }
 }
