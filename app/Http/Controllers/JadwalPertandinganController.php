@@ -12,7 +12,8 @@ class JadwalPertandinganController extends Controller
      */
     public function index()
     {
-        //
+        $jadwalPertandingan = JadwalPertandingan::all();
+        return view("admin.jadwal_pertandingan.index", compact("jadwalPertandingan"));
     }
 
     /**
