@@ -12,7 +12,8 @@ class TiketController extends Controller
      */
     public function index()
     {
-        //
+        $tiket = Tiket::all();
+        return view("admin.tikets.index", compact("tiket"));
     }
 
     /**
