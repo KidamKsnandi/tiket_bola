@@ -21,6 +21,7 @@ class StadionController extends Controller
      */
     public function create()
     {
+        return view("admin.stadions.create");
     }
 
     /**
@@ -28,7 +29,17 @@ class StadionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+        ]);
+
+        $stadion = new stadion();
+        $stadion->nama = $request->nama;
+        $stadion->alamat = $request->alamat;
+        $stadion->save();
+
+        return redirect()->route('stadion.index')->with('success', 'Stadion berhasil ditambahkan');
     }
 
     /**
