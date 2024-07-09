@@ -60,17 +60,34 @@ class TiketController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tiket $tiket)
+    public function edit($id_jadwal, $id)
     {
-        //
+        $jadwal = JadwalPertandingan::find($id_jadwal);
+        $tiket = Tiket::find($id);
+        return view("admin.tikets.edit", compact("tiket", "jadwal", "id_jadwal"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tiket $tiket)
+    public function update(Request $request, $id_jadwal, $id)
     {
-        //
+        $request->validate([
+            'nama_tiket' => 'required',
+            'tribun' => 'required',
+            'kuota' => 'required',
+            'harga' => 'required',
+        ]);
+
+        $tiket = Tiket::find($id);
+        $tiket->id_jadwal_pertandingan = $id_jadwal;
+        $tiket->nama_tiket = $request->nama_tiket;
+        $tiket->tribun = $request->tribun;
+        $tiket->kuota = $request->kuota;
+        $tiket->harga = $request->harga;
+        $tiket->save();
+
+        return redirect()->route('tiket.index', $id_jadwal)->with('success', 'Tiket berhasil ditambahkan');
     }
 
     /**
