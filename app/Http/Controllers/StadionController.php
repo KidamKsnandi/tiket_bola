@@ -21,7 +21,6 @@ class StadionController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
