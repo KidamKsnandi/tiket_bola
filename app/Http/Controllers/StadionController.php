@@ -59,7 +59,7 @@ class StadionController extends Controller
     public function edit($id)
     {
         $stadion = Stadion::findOrfail($id);
-        return view("admin.stadions.index", compact("stadion"));
+        return view("admin.stadions.edit", compact("stadion"));
     }
 
     /**
