@@ -31,6 +31,15 @@
                     <span class="hide-menu">Master</span>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('/stadion/club') ? 'active' : '' }}"
+                        href="{{ route('stadion.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-tree"></i>
+                        </span>
+                        <span class="hide-menu">Stadion</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('/admin/club') ? 'active' : '' }}"
                         href="{{ route('club.index') }}" aria-expanded="false">
                         <span>
