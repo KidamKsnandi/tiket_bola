@@ -62,6 +62,6 @@ class StadionController extends Controller
     {
         $stadion = Stadion::findOrfail($id);
         $stadion->delete();
-        return redirect()->route('stadion.index')->with('status', 'Club deleted successfully!');
+        return redirect()->route('stadion.index')->with('status', 'Club deleted successfuly!');
     }
 }
