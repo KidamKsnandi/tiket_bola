@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Club;
 use App\Models\JadwalPertandingan;
+use App\Models\Stadion;
 use Illuminate\Http\Request;
 
 class JadwalPertandinganController extends Controller
@@ -21,7 +23,9 @@ class JadwalPertandinganController extends Controller
      */
     public function create()
     {
-        //
+        $club = Club::all();
+        $stadion = Stadion::all();
+        return view("admin.jadwal_pertandingan.create", compact("club", "stadion"));
     }
 
     /**
@@ -29,7 +33,23 @@ class JadwalPertandinganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'club1' => 'required',
+            'club2' => 'required',
+            'keterangan' => 'required',
+            'jadwal_tanding' => 'required',
+            'stadion' => 'required',
+        ]);
+
+        $jadwalPertandingan = new JadwalPertandingan();
+        $jadwalPertandingan->id_club_1 = $request->club1;
+        $jadwalPertandingan->id_club_2 = $request->club2;
+        $jadwalPertandingan->keterangan = $request->keterangan;
+        $jadwalPertandingan->tanggal_tanding = $request->jadwal_tanding;
+        $jadwalPertandingan->id_stadion = $request->stadion;
+        $jadwalPertandingan->save();
+
+        return redirect()->route('jadwal-pertandingan.index')->with('success', 'Jadwal Pertandingan berhasil ditambahkan');
     }
 
     /**

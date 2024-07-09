@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\stadion;
+use App\Models\Stadion;
 use Illuminate\Http\Request;
 
 class StadionController extends Controller
