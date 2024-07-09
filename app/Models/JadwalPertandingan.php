@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class JadwalPertandingan extends Model
 {
     use HasFactory;
+
+    public function club1()
+    {
+        return $this->belongsTo(Club::class, 'id_club_1');
+    }
+
+    public function club2()
+    {
+        return $this->belongsTo(Club::class, 'id_club_2');
+    }
+
+    public function stadion()
+    {
+        return $this->belongsTo(Stadion::class, 'id_stadion');
+    }
 }
