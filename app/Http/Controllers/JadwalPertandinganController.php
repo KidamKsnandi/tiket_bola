@@ -12,7 +12,7 @@ class JadwalPertandinganController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
         $jadwalPertandingan = JadwalPertandingan::all();
         return view("admin.jadwal_pertandingan.index", compact("jadwalPertandingan"));
