@@ -93,8 +93,10 @@ class TiketController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tiket $tiket)
+    public function destroy($id_jadwal, $id)
     {
-        //
+        $tiket = Tiket::find($id);
+        $tiket->delete();
+        return redirect()->route('tiket.index', $id_jadwal)->with('success', 'Tiket deleted successfully');
     }
 }
