@@ -28,11 +28,13 @@
                                 <td>{{ $tiket->kuota }}</td>
                                 <td>{{ $tiket->harga }}</td>
                                 <td>
-                                    <form action="{{ route('tiket.destroy', $tiket->id) }}" method="POST"
+                                    <form
+                                        action="{{ route('tiket.destroy', ['id_jadwal' => $id_jadwal, 'id' => $tiket->id]) }}"
+                                        method="POST"
                                         onsubmit="return confirm('Are you sure you want to delete this tiket?')">
                                         @csrf
-                                        <a href="{{ route('tiket.edit', $tiket->id) }}" class="btn btn-warning"><i
-                                                class="fas fa-edit"></i></a>
+                                        <a href="{{ route('tiket.edit', ['id_jadwal' => $id_jadwal, 'id' => $tiket->id]) }}"
+                                            class="btn btn-warning"><i class="fas fa-edit"></i></a>
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalPertandingan;
 use App\Models\Tiket;
 use Illuminate\Http\Request;
 
@@ -19,17 +20,33 @@ class TiketController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id_jadwal)
     {
-        //
+        $jadwal = JadwalPertandingan::find($id_jadwal);
+        return view('admin.tikets.create', compact('jadwal', 'id_jadwal'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id_jadwal)
     {
-        //
+        $request->validate([
+            'nama_tiket' => 'required',
+            'tribun' => 'required',
+            'kuota' => 'required',
+            'harga' => 'required',
+        ]);
+
+        $tiket = new Tiket();
+        $tiket->id_jadwal_pertandingan = $id_jadwal;
+        $tiket->nama_tiket = $request->nama_tiket;
+        $tiket->tribun = $request->tribun;
+        $tiket->kuota = $request->kuota;
+        $tiket->harga = $request->harga;
+        $tiket->save();
+
+        return redirect()->route('tiket.index', $id_jadwal)->with('success', 'Tiket berhasil ditambahkan');
     }
 
     /**

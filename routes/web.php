@@ -37,7 +37,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/jadwal-pertandingan/{id_jadwal}/tiket/store', [TiketController::class, 'store'])->name('tiket.store');
     Route::get('/jadwal-pertandingan/{id_jadwal}/tiket/{id}/edit', [TiketController::class, 'edit'])->name('tiket.edit');
     Route::put('/jadwal-pertandingan/{id_jadwal}/tiket/{id}/update', [TiketController::class, 'update'])->name('tiket.update');
-    Route::delete('/jadwal-pertandingan/{id_jadwal}/tiket{id}/delete', [TiketController::class, 'delete'])->name('tiket.delete');
+    Route::delete('/jadwal-pertandingan/{id_jadwal}/tiket{id}/destroy', [TiketController::class, 'destroy'])->name('tiket.destroy');
     // Route::resource('/tiket', TiketController::class);
     Route::resource('/transaksi', TransaksiController::class);
     Route::resource('/banner', BannerController::class);
