@@ -11,7 +11,7 @@ class Bank extends Model
 
     public function logo()
     {
-        if ($this->logo && file_exists(public_path('images/clubs/' . $this->logo))) {
+        if ($this->logo && file_exists(public_path('images/banks/' . $this->logo))) {
             return asset('images/banks/' . $this->logo);
         } else {
             return asset('images/no_image.png');
