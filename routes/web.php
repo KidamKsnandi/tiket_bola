@@ -7,18 +7,12 @@ use App\Http\Controllers\JadwalPertandinganController;
 use App\Http\Controllers\StadionController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\User\MainController;
 use App\Http\Controllers\UserController;
 use App\Models\JadwalPertandingan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/tes', function () {
-    return view('layouts.user.index');
-});
 
 Auth::routes();
 
@@ -43,7 +37,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/banner', BannerController::class);
 });
 
+Route::get('/', [MainController::class, 'welcome']);
+Route::get('/jadwal-tiket', [MainController::class, 'jadwal']);
+Route::get('/jadwal-tiket/{slug_jadwal}/tiket', [MainController::class, 'tiket']);
+
 Route::prefix('user')->middleware(['auth', 'user'])->group(function () {
+    Route::get('/transaksi-tiket/{{slug}}', [MainController::class, 'transaksi']);
     Route::get('/dashboard', function () {
         return view('user.dashboard');
     })->name('user.dashboard');

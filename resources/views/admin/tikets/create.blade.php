@@ -19,7 +19,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="tribun">Tribun:</label>
-                                <input type="text" name="tribun" id="tribun" class="form-control" required>
+                                <select name="tribun" id="tribun" class="form-control" required>
+                                    <option value="">-- Pilih Tribun --</option>
+                                    <option value="Tribun Utara">Tribun Utara</option>
+                                    <option value="Tribun Selatan">Tribun Selatan</option>
+                                    <option value="Tribun Timur">Tribun Timur</option>
+                                    <option value="Tribun Barat">Tribun Barat</option>
+                                    <option value="VIP">VIP</option>
+                                    <option value="VVIP">VVIP</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="kuota">Kuota:</label>

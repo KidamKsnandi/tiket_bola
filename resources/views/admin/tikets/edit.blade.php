@@ -22,8 +22,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="tribun">Tribun:</label>
-                                <input type="text" value="{{ $tiket->tribun }}" name="tribun" id="tribun"
-                                    class="form-control" required>
+                                <select name="tribun" id="tribun" class="form-control" required>
+                                    <option value="">-- Pilih Tribun --</option>
+                                    <option value="Tribun Utara" {{ $tiket->tribun == 'Tribun Utara' ? 'selected' : '' }}>
+                                        Tribun Utara</option>
+                                    <option value="Tribun Selatan"
+                                        {{ $tiket->tribun == 'Tribun Selatan' ? 'selected' : '' }}>Tribun Selatan</option>
+                                    <option value="Tribun Timur" {{ $tiket->tribun == 'Tribun Timur' ? 'selected' : '' }}>
+                                        Tribun Timur</option>
+                                    <option value="Tribun Barat" {{ $tiket->tribun == 'Tribun Barat' ? 'selected' : '' }}>
+                                        Tribun Barat</option>
+                                    <option value="VIP" {{ $tiket->tribun == 'VIP' ? 'selected' : '' }}>VIP</option>
+                                    <option value="VVIP" {{ $tiket->tribun == 'VVIP' ? 'selected' : '' }}>VVIP</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="kuota">Kuota:</label>

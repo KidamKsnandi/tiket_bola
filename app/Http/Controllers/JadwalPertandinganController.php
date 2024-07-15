@@ -6,6 +6,7 @@ use App\Models\Club;
 use App\Models\JadwalPertandingan;
 use App\Models\Stadion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class JadwalPertandinganController extends Controller
 {
@@ -41,9 +42,14 @@ class JadwalPertandinganController extends Controller
             'stadion' => 'required',
         ]);
 
+        $club1 = Club::find($request->club1);
+        $club2 = Club::find($request->club2);
+        $stadion = Stadion::find($request->stadion);
+
         $jadwalPertandingan = new JadwalPertandingan();
         $jadwalPertandingan->id_club_1 = $request->club1;
         $jadwalPertandingan->id_club_2 = $request->club2;
+        $jadwalPertandingan->slug = Str::slug($club1->nama . "-vs-" . $club2->nama . " " . $request->keterangan . " " . $stadion->nama);
         $jadwalPertandingan->keterangan = $request->keterangan;
         $jadwalPertandingan->tanggal_tanding = $request->jadwal_tanding;
         $jadwalPertandingan->id_stadion = $request->stadion;
@@ -84,9 +90,14 @@ class JadwalPertandinganController extends Controller
             'stadion' => 'required',
         ]);
 
+        $club1 = Club::find($request->club1);
+        $club2 = Club::find($request->club2);
+        $stadion = Stadion::find($request->stadion);
+
         $jadwalPertandingan = JadwalPertandingan::findOrFail($id);
         $jadwalPertandingan->id_club_1 = $request->club1;
         $jadwalPertandingan->id_club_2 = $request->club2;
+        $jadwalPertandingan->slug = Str::slug($club1->nama . "-vs-" . $club2->nama . " " . $request->keterangan . " " . $stadion->nama);
         $jadwalPertandingan->keterangan = $request->keterangan;
         $jadwalPertandingan->tanggal_tanding = $request->jadwal_tanding;
         $jadwalPertandingan->id_stadion = $request->stadion;

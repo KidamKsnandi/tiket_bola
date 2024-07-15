@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_club_1')->unsigned();
             $table->bigInteger('id_club_2')->unsigned();
+            $table->string('slug');
             $table->string('keterangan');
             $table->date('tanggal_tanding');
             $table->bigInteger('id_stadion')->unsigned();

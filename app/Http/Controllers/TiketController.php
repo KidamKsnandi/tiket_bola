@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JadwalPertandingan;
 use App\Models\Tiket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TiketController extends Controller
 {
@@ -38,12 +39,15 @@ class TiketController extends Controller
             'harga' => 'required',
         ]);
 
+        $jadwal = JadwalPertandingan::find($id_jadwal);
+
         $tiket = new Tiket();
         $tiket->id_jadwal_pertandingan = $id_jadwal;
         $tiket->nama_tiket = $request->nama_tiket;
         $tiket->tribun = $request->tribun;
         $tiket->kuota = $request->kuota;
         $tiket->harga = $request->harga;
+        $tiket->slug = Str::slug($request->nama_tiket . " " . $request->tribun . " " . $jadwal->slug);
         $tiket->save();
 
         return redirect()->route('tiket.index', $id_jadwal)->with('success', 'Tiket berhasil ditambahkan');
