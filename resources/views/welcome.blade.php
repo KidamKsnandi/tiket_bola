@@ -89,8 +89,12 @@
                                             <h6>Stadion {{ $item->stadion->nama }} ({{ $item->stadion->alamat }})</h6>
                                             {{-- <h6 class="l-through">Rp.300.00o</h6> --}}
                                         </div>
+                                        <div class="mt-4">
+                                            <h6>{{ \Carbon\Carbon::parse($item->tanggal_tanding)->translatedFormat('d F Y \p\u\k\u\l H:i') }}
+                                            </h6>
+                                        </div>
                                         <div class="prd-bottom">
-                                            <a href="" class="social-info">
+                                            <a href="/jadwal-tiket/{{ $item->slug }}/tiket" class="social-info">
                                                 <span class="lnr lnr-move"></span>
                                                 <p class="hover-text">Lihat Detail</p>
                                             </a>
