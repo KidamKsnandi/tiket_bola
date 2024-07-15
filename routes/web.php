@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\JadwalPertandinganController;
@@ -33,6 +34,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/jadwal-pertandingan/{id_jadwal}/tiket/{id}/update', [TiketController::class, 'update'])->name('tiket.update');
     Route::delete('/jadwal-pertandingan/{id_jadwal}/tiket{id}/destroy', [TiketController::class, 'destroy'])->name('tiket.destroy');
     // Route::resource('/tiket', TiketController::class);
+    Route::resource('/bank', BankController::class);
     Route::resource('/transaksi', TransaksiController::class);
     Route::resource('/banner', BannerController::class);
 });

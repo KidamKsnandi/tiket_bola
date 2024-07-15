@@ -57,6 +57,15 @@
                         <span class="hide-menu">Jadwal Pertandingan</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('/bank') ? 'active' : '' }}" href="{{ route('bank.index') }}"
+                        aria-expanded="false">
+                        <span>
+                            <i class="ti ti-currency-dollar"></i>
+                        </span>
+                        <span class="hide-menu">Bank</span>
+                    </a>
+                </li>
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('/tiket') ? 'active' : '' }}"
                         href="{{ route('tiket.index') }}" aria-expanded="false">
@@ -67,7 +76,7 @@
                     </a>
                 </li> --}}
                 <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <i class="ti ti-money-bill nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Transaksi</span>
                 </li>
                 <li class="sidebar-item">
