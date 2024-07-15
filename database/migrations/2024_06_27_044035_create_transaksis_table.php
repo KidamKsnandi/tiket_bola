@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_user')->unsigned();
             $table->bigInteger('id_tiket')->unsigned();
+            $table->string('no_invoice');
             $table->string('nama');
             $table->string('email');
             $table->string('no_hp');
