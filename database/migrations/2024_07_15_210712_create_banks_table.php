@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('logo');
             $table->string('nama_bank');
             $table->string('atas_nama');
-            $table->integer('no_rekening');
+            $table->bigInteger('no_rekening');
             $table->timestamps();
         });
     }
