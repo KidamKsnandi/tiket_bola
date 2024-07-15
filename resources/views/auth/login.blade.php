@@ -1,91 +1,58 @@
-<!doctype html>
-<html lang="en">
+@extends('layouts.user.index')
 
-<head>
-    <title>Login Tiket Bola</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="{{ asset('assets/login/css/style.css') }}">
-
-</head>
-
-<body>
-    <section class="ftco-section">
+@section('content')
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 text-center mb-5">
-                    <h2 class="heading-section">Silahkan login</h2>
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Login/Register</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="">Login/Register</a>
+                    </nav>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-10">
-                    <div class="wrap d-md-flex">
-                        <div class="img" style="background-image: url({{ asset('assets/login/images/bg-1.jpg') }});">
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Login Box Area =================-->
+    <section class="login_box_area section_gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="login_box_img">
+                        <img class="img-fluid" src="{{ asset('assets/user/img/login.jpg') }}" alt="">
+                        <div class="hover">
+                            <h4>Tidak Punya Akun?</h4>
+                            <a class="primary-btn" href="{{ route('register') }}">Buat Akun</a>
                         </div>
-                        <div class="login-wrap p-4 p-md-5">
-                            <div class="d-flex">
-                                <div class="w-100">
-                                    <h3 class="mb-4">Log In</h3>
-                                </div>
-                                {{-- <div class="w-100">
-                                    <p class="social-media d-flex justify-content-end">
-                                        <a href="#"
-                                            class="social-icon d-flex align-items-center justify-content-center"><span
-                                                class="fa fa-facebook"></span></a>
-                                        <a href="#"
-                                            class="social-icon d-flex align-items-center justify-content-center"><span
-                                                class="fa fa-twitter"></span></a>
-                                    </p>
-                                </div> --}}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="login_form_inner">
+                        <h3>Log in untuk membeli tiket</h3>
+                        <form class="row login_form" action="{{ route('login') }}" method="post" id="contactForm"
+                            novalidate="novalidate">
+                            @csrf
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Useremail'">
                             </div>
-                            <form method="POST" action="{{ route('login') }}" class="signin-form">
-                                @csrf
-                                <div class="form-group mb-3">
-                                    <label class="label" for="name">Email</label>
-                                    <input type="email" name="email" class="form-control" placeholder="Email"
-                                        required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="label" for="password">Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign
-                                        In</button>
-                                </div>
-                                {{-- <div class="form-group d-md-flex">
-                                    <div class="w-50 text-left">
-                                        <label class="checkbox-wrap checkbox-primary mb-0">Remember Me
-                                            <input type="checkbox" checked>
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="w-50 text-md-right">
-                                        <a href="#">Forgot Password</a>
-                                    </div>
-                                </div> --}}
-                            </form>
-                            <p class="text-center">Tidak punya akun? <a data-toggle="tab"
-                                    href="{{ route('register') }}">Daftar
-                                    Disini</a></p>
-                        </div>
+                            <div class="col-md-12 form-group">
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Password" onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Password'">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <button type="submit" value="submit" class="primary-btn">Log In</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <script src="{{ asset('assets/login/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/login/js/popper.js') }}"></script>
-    <script src="{{ asset('assets/login/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/login/js/main.js') }}"></script>
-
-</body>
-
-</html>
+    <!--================End Login Box Area =================-->
+@endsection
