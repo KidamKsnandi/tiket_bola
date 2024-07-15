@@ -20,7 +20,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.banks.create');
     }
 
     /**
@@ -28,7 +28,26 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'logo' => 'required|image|mimes:jpg,jpeg,png',
+            'nama_bank' => 'required|max:255',
+            'atas_nama' => 'required',
+            'no_rekening' => 'required',
+        ]);
+
+        $bank = new Bank();
+        $bank->nama_bank = $validatedData['nama_bank'];
+        $bank->atas_nama = $validatedData['atas_nama'];
+        $bank->no_rekening = $validatedData['no_rekening'];
+        if ($request->hasFile('logo')) {
+            $image = $request->logo;
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('images/banks/', $name);
+            $bank->logo = $name;
+        }
+        $bank->save();
+
+        return redirect()->route('bank.index')->with('status', 'Bank created successfully!');
     }
 
     /**
