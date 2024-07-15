@@ -42,7 +42,7 @@ Route::get('/jadwal-tiket', [MainController::class, 'jadwal']);
 Route::get('/jadwal-tiket/{slug_jadwal}/tiket', [MainController::class, 'tiket']);
 
 Route::prefix('user')->middleware(['auth', 'user'])->group(function () {
-    Route::get('/transaksi-tiket/{{slug}}', [MainController::class, 'transaksi']);
+    Route::get('/transaksi-tiket/{slug}', [MainController::class, 'transaksi']);
     Route::get('/dashboard', function () {
         return view('user.dashboard');
     })->name('user.dashboard');
