@@ -15,6 +15,8 @@ class MainController extends Controller
     }
     public function jadwal()
     {
+        $jadwal = JadwalPertandingan::orderBy('created_at', 'asc')->get();
+        return view("user.jadwal", compact("jadwal"));
     }
     public function tiket()
     {
