@@ -64,7 +64,7 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('No. Rekening') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="no_rekening" type="text"
+                                    <input id="no_rekening" type="number"
                                         class="form-control @error('no_rekening') is-invalid @enderror" name="no_rekening"
                                         value="{{ old('no_rekening') }}" required autofocus>
 
