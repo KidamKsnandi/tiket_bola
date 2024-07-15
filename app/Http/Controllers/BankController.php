@@ -12,7 +12,8 @@ class BankController extends Controller
      */
     public function index()
     {
-        //
+        $banks = Bank::all();
+        return view('admin.clubs.index', compact('banks'));
     }
 
     /**
