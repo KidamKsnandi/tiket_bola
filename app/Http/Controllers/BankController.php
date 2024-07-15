@@ -100,6 +100,8 @@ class BankController extends Controller
      */
     public function destroy(Bank $bank)
     {
-        //
+        $bank->delete();
+        $bank->deleteLogo();
+        return redirect()->route('bank.index')->with('status', 'Bank deleted successfully!');
     }
 }
