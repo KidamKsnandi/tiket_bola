@@ -1,4 +1,97 @@
 @extends('layouts.admin.index')
 
 @section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('Edit Bank') }}</div>
+
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('bank.update', ['bank' => $bank->id]) }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="form-group row">
+                                <label for="logo"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Logo') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="logo" type="file"
+                                        class="form-control @error('logo') is-invalid @enderror" name="logo" required>
+
+                                    @error('logo')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    <div class="mt-2">
+                                        <img src="{{ $bank->logo() }}" alt="{{ $bank->nama }}" style="width: 50px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="nama_bank"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Nama Bank') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="nama_bank" type="text"
+                                        class="form-control @error('nama_bank') is-invalid @enderror" name="nama_bank"
+                                        value="{{ old('nama_bank', $bank->nama_bank) }}" required autofocus>
+
+                                    @error('nama_bank')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="atas_nama"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Atas Nama') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="atas_nama" type="text"
+                                        class="form-control @error('atas_nama') is-invalid @enderror" name="atas_nama"
+                                        value="{{ old('atas_nama', $bank->atas_nama) }}" required autofocus>
+
+                                    @error('atas_nama')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="no_rekening"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('No. Rekening') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="no_rekening" type="number"
+                                        class="form-control @error('no_rekening') is-invalid @enderror" name="no_rekening"
+                                        value="{{ old('no_rekening', $bank->no_rekening) }}" required autofocus>
+
+                                    @error('no_rekening')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Update') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
