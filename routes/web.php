@@ -46,6 +46,8 @@ Route::get('/jadwal-tiket/{slug_jadwal}/tiket', [MainController::class, 'tiket']
 Route::prefix('user')->middleware(['auth', 'user'])->group(function () {
     Route::get('/transaksi-tiket/{slug}', [MainController::class, 'transaksi']);
     Route::post('/transaksi-tiket/{slug}/checkout', [MainController::class, 'checkout']);
+    Route::get('/invoice/{no_invoice}', [MainController::class, 'invoice']);
+    Route::post('/invoice/{no_invoice}/uploadBukti', [MainController::class, 'uploadBukti']);
     Route::get('/dashboard', function () {
         return view('user.dashboard');
     })->name('user.dashboard');

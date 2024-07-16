@@ -72,4 +72,18 @@ class MainController extends Controller
 
         return redirect("/user/invoice/" . $transaksiE->no_invoice);
     }
+
+    public function invoice($no_invoice)
+    {
+        $transaksi = Transaksi::where('id_user', Auth::user()->id)->where('no_invoice', $no_invoice)->first();
+        if (isset($transaksi)) {
+            return view('user.transaksi.invoice', compact('transaksi'));
+        } else {
+            return redirect()->back();
+        }
+    }
+    public function uploadBukti(Request $request, $no_invoice)
+    {
+        $transaksi = Transaksi::where('invoice', $no_invoice)->first();
+    }
 }
