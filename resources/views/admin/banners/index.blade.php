@@ -26,8 +26,6 @@
                                     <form action="{{ route('banner.destroy', ['banner' => $banner->id]) }}" method="POST"
                                         onsubmit="return confirm('Are you sure you want to delete this banner?')">
                                         @csrf
-                                        <a href="{{ route('banner.show', ['banner' => $banner->id]) }}"
-                                            class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                         <a href="{{ route('banner.edit', ['banner' => $banner->id]) }}"
                                             class="btn btn-warning"><i class="fas fa-edit"></i></a>
                                         @method('DELETE')
