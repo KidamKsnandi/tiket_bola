@@ -117,6 +117,12 @@
                                             class="rounded-circle" width="30" height="30">
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item">{{ Auth::user()->name }}</a>
+                                        <hr>
+                                        <a class="dropdown-item" href="/user/tiket-saya">
+                                            {{ __('Tiket Saya') }}
+                                        </a>
+                                        <hr>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -136,10 +142,11 @@
         </div>
         <div class="search_input" id="search_input_box">
             <div class="container">
-                <form class="d-flex justify-content-between">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                <form action="/jadwal-tiket" method="GET" class="d-flex justify-content-between">
+                    <input type="text" class="form-control" name="search-club" id="search_input"
+                        placeholder="Cari berdasarkan nama club">
                     <button type="submit" class="btn"></button>
-                    <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+                    <span class="lnr lnr-cross" id="close_search" title="Tutup Pencarian"></span>
                 </form>
             </div>
         </div>

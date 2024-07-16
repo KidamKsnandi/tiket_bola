@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Club;
 use App\Models\JadwalPertandingan;
 use App\Models\Tiket;
 use Illuminate\Http\Request;
@@ -14,9 +15,20 @@ class MainController extends Controller
         $jadwal = JadwalPertandingan::orderBy('created_at', 'asc')->take(4)->get();
         return view("welcome", compact("jadwal"));
     }
-    public function jadwal()
+    public function jadwal(Request $request)
     {
-        $jadwal = JadwalPertandingan::orderBy('created_at', 'asc')->get();
+        if ($request->input('search-club')) {
+            $query = $request->input('search-club');
+            $jadwal = JadwalPertandingan::whereHas('club1', function ($q) use ($query) {
+                $q->where('nama', 'LIKE', "%$query%");
+            })
+                ->orWhereHas('club2', function ($q) use ($query) {
+                    $q->where('nama', 'LIKE', "%$query%");
+                })
+                ->get();
+        } else {
+            $jadwal = JadwalPertandingan::orderBy('created_at', 'asc')->get();
+        }
         return view("user.jadwal", compact("jadwal"));
     }
     public function tiket($slug_jadwal)
