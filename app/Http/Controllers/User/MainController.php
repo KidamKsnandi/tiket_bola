@@ -18,6 +18,7 @@ class MainController extends Controller
         $jadwal = JadwalPertandingan::orderBy('created_at', 'asc')->take(4)->get();
         return view("welcome", compact("jadwal"));
     }
+
     public function jadwal(Request $request)
     {
         if ($request->input('search-club')) {
@@ -34,6 +35,16 @@ class MainController extends Controller
         }
         return view("user.jadwal", compact("jadwal"));
     }
+
+    public function listTiketSaya()
+    {
+        return view('user.tiket-saya.list');
+    }
+    public function detailTiketSaya($no_invoice, $slug)
+    {
+        return view('user.tiket-saya.detail');
+    }
+
     public function tiket($slug_jadwal)
     {
         $jadwal = JadwalPertandingan::where("slug", $slug_jadwal)->first();
