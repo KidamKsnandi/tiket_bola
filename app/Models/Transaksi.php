@@ -9,6 +9,10 @@ class Transaksi extends Model
 {
     use HasFactory;
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
     public function tiket()
     {
         return $this->belongsTo(Tiket::class, 'id_tiket');

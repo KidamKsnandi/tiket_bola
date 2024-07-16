@@ -38,11 +38,13 @@ class MainController extends Controller
 
     public function listTiketSaya()
     {
-        return view('user.tiket-saya.list');
+        $transaksi = Transaksi::where('id_user', Auth::user()->id)->get();
+        return view('user.tiket-saya.list', compact('transaksi'));
     }
     public function detailTiketSaya($no_invoice, $slug)
     {
-        return view('user.tiket-saya.detail');
+        $transaksi = Transaksi::where('no_invoice', $no_invoice)->first();
+        return view('user.tiket-saya.detail', compact('transaksi'));
     }
 
     public function tiket($slug_jadwal)
