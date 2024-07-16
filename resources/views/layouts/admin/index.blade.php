@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/styles.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    @yield('css')
 </head>
 
 <body>
@@ -40,6 +41,7 @@
     <script src="{{ asset('assets/admin/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/admin/libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="{{ asset('assets/admin/js/dashboard.js') }}"></script>
+    @yield('js')
 </body>
 
 </html>

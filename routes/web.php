@@ -37,6 +37,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/bank', BankController::class);
     Route::resource('/transaksi', TransaksiController::class);
     Route::resource('/banner', BannerController::class);
+
+    Route::post('/transaksi/{id}/konfirmasi', [TransaksiController::class, 'konfirmasi'])->name('admin.transaksi.konfirmasi');
 });
 
 Route::get('/', [MainController::class, 'welcome']);
