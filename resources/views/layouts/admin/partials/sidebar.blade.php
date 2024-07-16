@@ -31,6 +31,15 @@
                     <span class="hide-menu">Master</span>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('/banner') ? 'active' : '' }}"
+                        href="{{ route('banner.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-layers-intersect"></i>
+                        </span>
+                        <span class="hide-menu">Banner</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('/stadion/club') ? 'active' : '' }}"
                         href="{{ route('stadion.index') }}" aria-expanded="false">
                         <span>
@@ -58,14 +67,15 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request::is('/bank') ? 'active' : '' }}" href="{{ route('bank.index') }}"
-                        aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('/bank') ? 'active' : '' }}"
+                        href="{{ route('bank.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-currency-dollar"></i>
                         </span>
                         <span class="hide-menu">Bank</span>
                     </a>
                 </li>
+
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('/tiket') ? 'active' : '' }}"
                         href="{{ route('tiket.index') }}" aria-expanded="false">
@@ -93,12 +103,12 @@
                     <span class="hide-menu">Users</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request::is('/user-admin') ? 'active' : '' }}"
-                        href="{{ route('user-admin.index') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('/pengguna') ? 'active' : '' }}"
+                        href="{{ route('pengguna.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-users"></i>
                         </span>
-                        <span class="hide-menu">Admin</span>
+                        <span class="hide-menu">Pengguna</span>
                     </a>
                 </li>
             </ul>

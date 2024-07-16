@@ -22,7 +22,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('user-admin.update', $user->id) }}" method="POST">
+            <form action="{{ route('pengguna.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">

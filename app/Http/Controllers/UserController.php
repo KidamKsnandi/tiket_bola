@@ -40,7 +40,7 @@ class UserController extends Controller
         $user->role_id = $request->role;
         $user->save();
 
-        return redirect('/admin/user-admin')->with('success', 'User created successfully!');
+        return redirect('/admin/pengguna')->with('success', 'User created successfully!');
     }
 
     public function edit($id)
@@ -71,7 +71,7 @@ class UserController extends Controller
         $user->role_id = $request->role;
         $user->save();
 
-        return redirect('/admin/user-admin')->with('success', 'User created successfully!');
+        return redirect('/admin/pengguna')->with('success', 'User created successfully!');
     }
 
     public function destroy($id)
@@ -82,6 +82,6 @@ class UserController extends Controller
         }
 
         $User->delete();
-        return redirect()->route('user-admin.index')->with(['Berhasil', 'Data berhasil dihapus']);
+        return redirect()->route('pengguna.index')->with(['Berhasil', 'Data berhasil dihapus']);
     }
 }

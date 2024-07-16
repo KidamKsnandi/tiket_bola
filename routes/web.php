@@ -23,7 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::resource('/user-admin', UserController::class);
+    Route::resource('/pengguna', UserController::class);
     Route::resource('/club', ClubController::class);
     Route::resource('/stadion', StadionController::class);
     Route::resource('/jadwal-pertandingan', JadwalPertandinganController::class);
