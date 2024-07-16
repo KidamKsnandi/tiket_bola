@@ -20,7 +20,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.banners.create");
     }
 
     /**
@@ -28,7 +28,24 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'gambar' => 'required|image|mimes:jpg,jpeg,png',
+            'deskripsi' => 'required',
+        ]);
+
+        $banner = new banner();
+        $banner->nama = $validatedData['nama'];
+        if ($request->hasFile('gambar')) {
+            $image = $request->gambar;
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('images/banners/', $name);
+            $banner->gambar = $name;
+        }
+        $banner->deskripsi = $validatedData['deskripsi'];
+        $banner->save();
+
+        return redirect()->route('banner.index')->with('status', 'Banner created successfully!');
     }
 
     /**
