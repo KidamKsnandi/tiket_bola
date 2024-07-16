@@ -60,6 +60,8 @@ class BannerController extends Controller
      */
     public function destroy(Banner $banner)
     {
-        //
+        $banner->delete();
+        $banner->deleteGambar();
+        return redirect()->route('banner.index')->with('status', 'Banner deleted successfully!');
     }
 }
