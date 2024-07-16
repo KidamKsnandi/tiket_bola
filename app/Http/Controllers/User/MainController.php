@@ -84,6 +84,16 @@ class MainController extends Controller
     }
     public function uploadBukti(Request $request, $no_invoice)
     {
-        $transaksi = Transaksi::where('invoice', $no_invoice)->first();
+        $transaksi = Transaksi::find($request->id_transaksi);
+        if ($request->hasFile('bukti_bayar')) {
+            $image = $request->bukti_bayar;
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('images/bukti_bayar/', $name);
+            $transaksi->bukti_bayar = $name;
+        }
+        $transaksi->status = 2;
+        $transaksi->save();
+
+        return redirect('/user/tiket-saya');
     }
 }
