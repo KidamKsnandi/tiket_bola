@@ -30,6 +30,6 @@ class HomeController extends Controller
         }
 
         // Jika bukan admin, arahkan ke halaman home biasa
-        return view('home');
+        return redirect('/');
     }
 }
