@@ -22,6 +22,7 @@
                                 <td>{{ $banner->nama }}</td>
                                 <td><a href="{{ $banner->gambar() }}" target="_blank"><img src="{{ $banner->gambar() }}"
                                             alt="{{ $banner->nama }}" style="width: 100px;"></a></td>
+                                <td>{{ $banner->deskripsi }}</td>
                                 <td>
                                     <form action="{{ route('banner.destroy', ['banner' => $banner->id]) }}" method="POST"
                                         onsubmit="return confirm('Are you sure you want to delete this banner?')">
