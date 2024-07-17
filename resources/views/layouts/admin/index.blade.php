@@ -41,6 +41,31 @@
     <script src="{{ asset('assets/admin/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/admin/libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="{{ asset('assets/admin/js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+    <script src="{{ asset('js/delete.js') }}"></script>
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        @if ($errors->any())
+            Swal.fire({
+                title: 'Error!',
+                html: '<ul>' +
+                    @foreach ($errors->all() as $error)
+                        '<li>{{ $error }}</li>' +
+                    @endforeach
+                '</ul>',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
     @yield('js')
 </body>
 

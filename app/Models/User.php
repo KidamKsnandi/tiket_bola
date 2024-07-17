@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->role_id === 1; // Adjust this according to your role implementation
     }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_user');
+    }
 }

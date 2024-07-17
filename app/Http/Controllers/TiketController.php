@@ -14,7 +14,7 @@ class TiketController extends Controller
      */
     public function index($id_jadwal)
     {
-        $tiket = Tiket::all();
+        $tiket = Tiket::where('id_jadwal_pertandingan', $id_jadwal)->orderBy('created_at', 'desc')->get();
         return view("admin.tikets.index", compact("tiket", "id_jadwal"));
     }
 
@@ -46,7 +46,7 @@ class TiketController extends Controller
         $tiket->nama_tiket = $request->nama_tiket;
         $tiket->tribun = $request->tribun;
         $tiket->kuota = $request->kuota;
-        $tiket->harga = $request->harga;
+        $tiket->harga = str_replace('.', '', $request->harga);
         $tiket->slug = Str::slug($request->nama_tiket . " " . $request->tribun . " " . $jadwal->slug);
         $tiket->save();
 
@@ -88,7 +88,7 @@ class TiketController extends Controller
         $tiket->nama_tiket = $request->nama_tiket;
         $tiket->tribun = $request->tribun;
         $tiket->kuota = $request->kuota;
-        $tiket->harga = $request->harga;
+        $tiket->harga = str_replace('.', '', $request->harga);
         $tiket->save();
 
         return redirect()->route('tiket.index', $id_jadwal)->with('success', 'Tiket berhasil ditambahkan');
@@ -99,8 +99,11 @@ class TiketController extends Controller
      */
     public function destroy($id_jadwal, $id)
     {
+        if (Tiket::has('transaksi')->find($id)) {
+            return back()->withErrors(['error' => 'Tiket ini memiliki transaksi.'])->withInput();
+        }
         $tiket = Tiket::find($id);
         $tiket->delete();
-        return redirect()->route('tiket.index', $id_jadwal)->with('success', 'Tiket deleted successfully');
+        return redirect()->route('tiket.index', $id_jadwal)->with('success', 'Tiket berhasil dihapus');
     }
 }

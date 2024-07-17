@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at', 'desc')->get();
         $data = [
             "users" => $users
         ];
@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $role = Role::all();
+        $role = Role::orderBy('created_at', 'desc')->get();
         return view('admin.users.create', compact('role'));
     }
     public function store(Request $request)
@@ -40,13 +40,13 @@ class UserController extends Controller
         $user->role_id = $request->role;
         $user->save();
 
-        return redirect('/admin/pengguna')->with('success', 'User created successfully!');
+        return redirect('/admin/pengguna')->with('success', 'User berhasil ditambah!');
     }
 
     public function edit($id)
     {
         $user = User::find($id);
-        $role = Role::all();
+        $role = Role::orderBy('created_at', 'desc')->get();
         $data = [
             "user"  => $user,
             "role"  => $role
@@ -60,7 +60,7 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $request->id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'required|min:6',
         ]);
 
@@ -71,17 +71,21 @@ class UserController extends Controller
         $user->role_id = $request->role;
         $user->save();
 
-        return redirect('/admin/pengguna')->with('success', 'User created successfully!');
+        return redirect('/admin/pengguna')->with('success', 'User berhasil ditambah!');
     }
 
     public function destroy($id)
     {
         $User = User::find($id);
+
+        if (User::has('transaksi')->find($id)) {
+            return back()->withErrors(['error' => 'Pengguna ini memiliki transaksi.'])->withInput();
+        }
         if (!$User) {
-            return redirect()->back()->with(['Eror', 'Pengguna tidak dapat digunakan'],);
+            return redirect()->back()->with(['error', 'Pengguna tidak dapat digunakan'],);
         }
 
         $User->delete();
-        return redirect()->route('pengguna.index')->with(['Berhasil', 'Data berhasil dihapus']);
+        return redirect()->route('pengguna.index')->with('success', 'Data berhasil dihapus');
     }
 }

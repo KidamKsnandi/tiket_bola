@@ -8,14 +8,31 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#transaksi').DataTable();
+        });
+    </script>
 @endsection
+
 
 @section('content')
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Transaksi</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
         <h1 class="my-4 text-center">List Transaksi</h1>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-responsive table-striped">
+                <table class="table table-responsive table-striped" id="transaksi">
                     <thead>
                         <tr>
                             <th>No. Invoice</th>
@@ -108,7 +125,7 @@
                                             </p>
                                             <p><strong>Bukti Pembayaran:</strong></p>
                                             <center>
-                                                <img src="{{ $trans->buktiBayar() }}" width="200px" alt="Bukti Pembayaran"
+                                                <img src="{{ $trans->buktiBayar() }}" width="100%" alt="Bukti Pembayaran"
                                                     class="img-fluid">
                                             </center>
                                             <br>
@@ -120,7 +137,7 @@
                                                 <button type="button" class="btn btn-danger" data-toggle="collapse"
                                                     data-target="#formTolak{{ $trans->id }}">Ditolak</button>
                                                 <div id="formTolak{{ $trans->id }}" class="collapse mt-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group mb-2">
                                                         <label for="keterangan">Keterangan Penolakan</label>
                                                         <textarea class="form-control" name="keterangan" rows="3"></textarea>
                                                     </div>

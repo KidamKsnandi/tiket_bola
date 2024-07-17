@@ -9,6 +9,11 @@ class JadwalPertandingan extends Model
 {
     use HasFactory;
 
+    public function tiket()
+    {
+        return $this->hasMany(Tiket::class, 'id_jadwal_pertandingan');
+    }
+
     public function club1()
     {
         return $this->belongsTo(Club::class, 'id_club_1');

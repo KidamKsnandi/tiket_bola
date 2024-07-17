@@ -12,7 +12,7 @@ class StadionController extends Controller
      */
     public function index()
     {
-        $stadions = Stadion::all();
+        $stadions = Stadion::orderBy('created_at', 'desc')->get();
         return view('admin.stadions.index', compact('stadions'));
     }
 
@@ -30,11 +30,11 @@ class StadionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
+            'nama' => 'required|unique:stadions',
             'alamat' => 'required',
         ]);
 
-        $stadion = new stadion();
+        $stadion = new Stadion();
         $stadion->nama = $request->nama;
         $stadion->alamat = $request->alamat;
         $stadion->save();
@@ -68,7 +68,7 @@ class StadionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required',
+            'nama' => 'required|unique:stadions,nama,' . $id,
             'alamat' => 'required',
         ]);
 
@@ -77,7 +77,7 @@ class StadionController extends Controller
         $stadion->alamat = $request->alamat;
         $stadion->save();
 
-        return redirect()->route('stadion.index')->with('success', 'Stadion updated successfully');
+        return redirect()->route('stadion.index')->with('success', 'Stadion berhasil diupdate');
     }
 
     /**
@@ -85,8 +85,13 @@ class StadionController extends Controller
      */
     public function destroy($id)
     {
+
+        if (Stadion::has('jadwal_pertandingan')->find($id)) {
+            return back()->withErrors(['error' => 'Stadion ini memiliki jadwal pertandingan.'])->withInput();
+        }
+
         $stadion = Stadion::findOrfail($id);
         $stadion->delete();
-        return redirect()->route('stadion.index')->with('status', 'Club deleted successfuly!');
+        return redirect()->route('stadion.index')->with('success', 'Stadion berhasil dihapus!');
     }
 }

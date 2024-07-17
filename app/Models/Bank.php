@@ -9,6 +9,11 @@ class Bank extends Model
 {
     use HasFactory;
 
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_bank');
+    }
+
     public function logo()
     {
         if ($this->logo && file_exists(public_path('images/banks/' . $this->logo))) {

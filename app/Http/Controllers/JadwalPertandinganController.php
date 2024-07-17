@@ -15,7 +15,7 @@ class JadwalPertandinganController extends Controller
      */
     public function index()
     {
-        $jadwalPertandingan = JadwalPertandingan::all();
+        $jadwalPertandingan = JadwalPertandingan::orderBy('created_at', 'desc')->get();
         return view("admin.jadwal_pertandingan.index", compact("jadwalPertandingan"));
     }
 
@@ -24,8 +24,8 @@ class JadwalPertandinganController extends Controller
      */
     public function create()
     {
-        $club = Club::all();
-        $stadion = Stadion::all();
+        $club = Club::orderBy('created_at', 'desc')->get();
+        $stadion = Stadion::orderBy('created_at', 'desc')->get();
         return view("admin.jadwal_pertandingan.create", compact("club", "stadion"));
     }
 
@@ -41,6 +41,16 @@ class JadwalPertandinganController extends Controller
             'jadwal_tanding' => 'required',
             'stadion' => 'required',
         ]);
+
+        if ($request->club1 == $request->club2) {
+            return back()->withErrors(['club1' => 'Club yang bertanding tidak boleh sama.'])->withInput();
+        }
+
+        $tanggalTanding = $request->jadwal_tanding;
+        $tanggalSekarang = now();
+        if ($tanggalTanding < $tanggalSekarang) {
+            return back()->withErrors(['jadwal_tanding' => 'Tanggal tanding tidak boleh lebih kecil dari tanggal sekarang.'])->withInput();
+        }
 
         $club1 = Club::find($request->club1);
         $club2 = Club::find($request->club2);
@@ -72,8 +82,8 @@ class JadwalPertandinganController extends Controller
     public function edit($id)
     {
         $jadwalPertandingan = JadwalPertandingan::find($id);
-        $club = Club::all();
-        $stadion = Stadion::all();
+        $club = Club::orderBy('created_at', 'desc')->get();
+        $stadion = Stadion::orderBy('created_at', 'desc')->get();
         return view("admin.jadwal_pertandingan.edit", compact("jadwalPertandingan", "club", "stadion"));
     }
 
@@ -90,6 +100,16 @@ class JadwalPertandinganController extends Controller
             'stadion' => 'required',
         ]);
 
+        if ($request->club1 == $request->club2) {
+            return back()->withErrors(['club1' => 'Club yang bertanding tidak boleh sama.'])->withInput();
+        }
+
+        $tanggalTanding = $request->jadwal_tanding;
+        $tanggalSekarang = now();
+        if ($tanggalTanding < $tanggalSekarang) {
+            return back()->withErrors(['jadwal_tanding' => 'Tanggal tanding tidak boleh lebih kecil dari tanggal sekarang.'])->withInput();
+        }
+
         $club1 = Club::find($request->club1);
         $club2 = Club::find($request->club2);
         $stadion = Stadion::find($request->stadion);
@@ -103,7 +123,7 @@ class JadwalPertandinganController extends Controller
         $jadwalPertandingan->id_stadion = $request->stadion;
         $jadwalPertandingan->save();
 
-        return redirect()->route('jadwal-pertandingan.index')->with('success', 'Jadwal Pertandingan updated successfully');
+        return redirect()->route('jadwal-pertandingan.index')->with('success', 'Jadwal Pertandingan berhasil diupdate');
     }
 
     /**
@@ -111,8 +131,12 @@ class JadwalPertandinganController extends Controller
      */
     public function destroy($id)
     {
+
+        if (JadwalPertandingan::has('tiket')->find($id)) {
+            return back()->withErrors(['error' => 'Jadwal Pertandingan ini memiliki tiket.'])->withInput();
+        }
         $jadwalPertandingan = JadwalPertandingan::findOrFail($id);
         $jadwalPertandingan->delete();
-        return redirect()->route('jadwal-pertandingan.index')->with('success', 'Jadwal Pertandingan deleted successfully');
+        return redirect()->route('jadwal-pertandingan.index')->with('success', 'Jadwal Pertandingan berhasil dihapus');
     }
 }

@@ -52,7 +52,11 @@
                             {{ $transaksi->tiket->jadwal_pertandingan->stadion->alamat }}<br>
                             <strong>Tanggal Tanding:</strong>
                             {{ \Carbon\Carbon::parse($transaksi->tiket->jadwal_pertandingan->tanggal_tanding)->translatedFormat('d F Y \p\u\k\u\l H:i') }}<br>
-                            <strong>Jumlah Tiket:</strong> {{ $transaksi->jumlah }}<br>
+                            <strong>Jumlah Tiket:</strong>
+                            @for ($i = 1; $i <= $transaksi->jumlah; $i++)
+                                <img src="{{ asset('images/tiket.png') }}" alt="" width="30px">
+                            @endfor
+                            <br>
                             <strong>Status Tiket:</strong>
                             @if ($transaksi->status == 1)
                                 <span class="badge badge-warning badge-status">Pending</span>

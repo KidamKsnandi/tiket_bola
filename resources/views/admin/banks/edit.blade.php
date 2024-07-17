@@ -2,6 +2,17 @@
 
 @section('content')
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('bank.index') }}">Bank</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Bank</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -13,7 +24,7 @@
                             @csrf
                             @method('PUT')
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="logo"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Logo') }}</label>
 
@@ -27,12 +38,12 @@
                                         </span>
                                     @enderror
                                     <div class="mt-2">
-                                        <img src="{{ $bank->logo() }}" alt="{{ $bank->nama }}" style="width: 50px;">
+                                        <img src="{{ $bank->logo() }}" alt="{{ $bank->nama }}" style="width: 200px;">
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="nama_bank"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Nama Bank') }}</label>
 
@@ -48,7 +59,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="atas_nama"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Atas Nama') }}</label>
 
@@ -64,7 +75,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="no_rekening"
                                     class="col-md-4 col-form-label text-md-right">{{ __('No. Rekening') }}</label>
 
@@ -81,7 +92,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0">
+                            <div class="form-group row mb-2 mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Update') }}

@@ -11,6 +11,15 @@ class Club extends Model
 
     protected $fillable = ['nama', 'logo'];
 
+    public function jadwal_pertandingan1()
+    {
+        return $this->hasMany(JadwalPertandingan::class, 'id_club_1');
+    }
+    public function jadwal_pertandingan2()
+    {
+        return $this->hasMany(JadwalPertandingan::class, 'id_club_2');
+    }
+
     public function logo()
     {
         if ($this->logo && file_exists(public_path('images/clubs/' . $this->logo))) {

@@ -44,26 +44,27 @@
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <input type="text" class="form-control" id="nama" name="nama"
-                            value="{{ Auth::user()->name }}" placeholder="Masukkan nama" required>
+                            value="{{ old('nama', Auth::user()->name) }}" placeholder="Masukkan nama" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" value="{{ Auth::user()->email }}"
-                            name="email" placeholder="Masukkan email" required>
+                        <input type="email" class="form-control" id="email"
+                            value="{{ old('email', Auth::user()->email) }}" name="email" placeholder="Masukkan email"
+                            required>
                     </div>
                     <div class="mb-3">
                         <label for="no_hp" class="form-label">No HP</label>
                         <input type="number" class="form-control" id="no_hp" name="no_hp"
-                            placeholder="Masukkan no HP" required>
+                            value="{{ old('no_hp') }}" placeholder="Masukkan no HP" required>
                     </div>
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat</label>
-                        <textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="Masukkan alamat" required></textarea>
+                        <textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="Masukkan alamat" required>{{ old('alamat') }}</textarea>
                     </div>
                     <div class="mb-3">
                         <label for="jumlah_tiket" class="form-label">Jumlah Tiket</label>
                         <input type="number" class="form-control" id="jumlah_tiket" name="jumlah_tiket"
-                            placeholder="Masukkan jumlah tiket" required>
+                            value="{{ old('jumlah_tiket') }}" placeholder="Masukkan jumlah tiket" required>
                     </div>
                     <div class="mb-3">
                         <label for="nominal" class="form-label">Nominal</label>
@@ -77,7 +78,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="kodeUnik" class="form-label">Kode Unik</label>
-                        <input type="text" name="kode_unik" class="form-control" id="kodeUnik" readonly>
+                        <input type="text" name="kode_unik" class="form-control" id="kodeUnik" readonly
+                            value="{{ old('kode_unik') }}">
                         <i class="" style="font-size: 15px">*Kode unik untuk memudahkan pengecekan transfer </i>
                     </div>
                     <div class="mb-3">
@@ -86,7 +88,8 @@
                             @foreach ($bank as $key => $item)
                                 <div class="form-check bank-option">
                                     <input class="form-check-input" type="radio" name="bank"
-                                        id="bank{{ $key }}" value="{{ $item->id }}" required>
+                                        id="bank{{ $key }}" value="{{ $item->id }}" required
+                                        @checked(old('bank') == $item->id)>
                                     <label class="form-check-label" for="bank{{ $key }}">
                                         <div class="bank-details">
                                             <img src="{{ $item->logo() }}" alt="Logo {{ $item->nama_bank }}">

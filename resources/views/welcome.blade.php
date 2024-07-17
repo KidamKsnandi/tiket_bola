@@ -8,43 +8,23 @@
                     <div class="col-lg-12">
                         <div class="active-banner-slider owl-carousel">
                             <!-- single-slide -->
-                            <div class="row single-slide align-items-center d-flex">
-                                <div class="col-lg-5 col-md-6">
-                                    <div class="banner-content">
-                                        <h1>Banner <br>Tiket Bola 1</h1>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                            incididunt ut labore et
-                                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            @foreach ($banner as $item)
+                                <div class="row single-slide align-items-center d-flex">
+                                    <div class="col-lg-5 col-md-6">
+                                        <div class="banner-content">
+                                            <h1>{{ $item->nama }}</h1>
+                                            <p>{{ $item->deskripsi }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="banner-img">
+                                            {{-- <img class="img-fluid" width="100px"
+                                                src="{{ asset('assets/user/img/banner/banner-bola.png') }}" alt=""> --}}
+                                            <img class="img-fluid" src="{{ $item->gambar() }}" alt="">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-7">
-                                    <div class="banner-img">
-                                        <img class="img-fluid" src="{{ asset('assets/user/img/banner/banner-bola.png') }}"
-                                            alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- single-slide -->
-                            <div class="row single-slide align-items-center d-flex">
-                                <div class="col-lg-5">
-                                    <div class="banner-content">
-                                        <h1>Banner <br>Tiket Bola 2</h1>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                            incididunt ut labore et
-                                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                                        {{-- <div class="add-bag d-flex align-items-center">
-                                        <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                                        <span class="add-text text-uppercase">Add to Bag</span>
-                                    </div> --}}
-                                    </div>
-                                </div>
-                                <div class="col-lg-7">
-                                    <div class="banner-img">
-                                        <img class="img-fluid" src="{{ asset('assets/user/img/banner/banner-bola.png') }}"
-                                            alt="">
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

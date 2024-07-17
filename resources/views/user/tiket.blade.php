@@ -49,9 +49,13 @@
                             </li>
                             <li><a href="#"><span>Alamat</span> : {{ $jadwal->stadion->alamat }}</a></li>
                         </ul>
-
                         <h2 class="mt-4 text-center animate-grow-shrink">
-                            {{ \Carbon\Carbon::parse($jadwal->tanggal_tanding)->translatedFormat('d F Y \p\u\k\u\l H:i') }}
+                            @if (now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s') > $jadwal->tanggal_tanding)
+                                {{ \Carbon\Carbon::parse($jadwal->tanggal_tanding)->translatedFormat('d F Y \p\u\k\u\l H:i') }}
+                                - <span class="text-danger"> Pertandingan telah selesai </span>
+                            @else
+                                {{ \Carbon\Carbon::parse($jadwal->tanggal_tanding)->translatedFormat('d F Y \p\u\k\u\l H:i') }}
+                            @endif
                         </h2>
                         <style>
                             .animate-grow-shrink {
@@ -76,47 +80,72 @@
         </div>
     </div>
     <!--================End Single Product Area =================-->
+    @if (now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s') < $jadwal->tanggal_tanding)
+        <br>
+        <hr>
+        <br>
 
-    <br>
-    <hr>
-    <br>
-    <!-- Start related-product Area -->
-    <section class="related-product-area section_gap_bottom mt-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 text-center">
-                    <div class="section-title">
-                        <h3>Daftar Tiket Yang Tersedia di Pertandingan {{ $jadwal->club1->nama }} VS
-                            {{ $jadwal->club2->nama }}</h3>
+        <!-- Start related-product Area -->
+        <section class="related-product-area section_gap_bottom mt-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <div class="section-title">
+                            <h3>Daftar Tiket Yang Tersedia di Pertandingan {{ $jadwal->club1->nama }} VS
+                                {{ $jadwal->club2->nama }}</h3>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row">
-                        @foreach ($tiket as $item)
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                                <div class="single-related-product d-flex">
-                                    <a href="/user/transaksi-tiket/{{ $item->slug }}"><img
-                                            src="{{ asset('images/tiket.png') }}" alt="" width="100px"></a>
-                                    <div class="desc">
-                                        <a href="/user/transaksi-tiket/{{ $item->slug }}"
-                                            class="title">{{ $item->nama_tiket }} <b>({{ $item->tribun }})</b></a>
-                                        <div>
-                                            <h6>Tersisa {{ $item->kuota }} Tiket</h6>
-                                        </div>
-                                        <div class="price">
-                                            <h4>Rp{{ number_format($item->harga, 0, '', '.') }}</h4>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            @foreach ($tiket as $item)
+                                @if ($item->kuota == 0)
+                                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                                        <div class="single-related-product d-flex">
+                                            <a><img src="{{ asset('images/tiket.png') }}" alt=""
+                                                    width="100px"></a>
+                                            <div class="desc">
+                                                <a class="title">{{ $item->nama_tiket }}
+                                                    <b>({{ $item->tribun }})</b></a>
+                                                <div>
+                                                    <h6>Tersisa 0 Tiket <span class="text-danger">(Sudah Habis)</span></h6>
+                                                </div>
+                                                <div class="price">
+                                                    <h4>Rp{{ number_format($item->harga, 0, '', '.') }}</h4>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        @endforeach
+                                @else
+                                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                                        <div class="single-related-product d-flex">
+                                            <a href="/user/transaksi-tiket/{{ $item->slug }}"><img
+                                                    src="{{ asset('images/tiket.png') }}" alt=""
+                                                    width="100px"></a>
+                                            <div class="desc">
+                                                <a href="/user/transaksi-tiket/{{ $item->slug }}"
+                                                    class="title">{{ $item->nama_tiket }}
+                                                    <b>({{ $item->tribun }})</b></a>
+                                                <div>
+                                                    <h6>Tersisa {{ $item->kuota }} Tiket</h6>
+                                                </div>
+                                                <div class="price">
+                                                    <h4>Rp{{ number_format($item->harga, 0, '', '.') }}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @else
+        <br>
+    @endif
     <!-- End related-product Area -->
 @endsection

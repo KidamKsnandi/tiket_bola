@@ -33,7 +33,11 @@
                         <h5>Tiket yang Dibeli: {{ $transaksi->tiket->nama_tiket }} ({{ $transaksi->tiket->tribun }})</h5>
                         <h5>Pertandingan: {{ $transaksi->tiket->jadwal_pertandingan->club1->nama }} VS
                             {{ $transaksi->tiket->jadwal_pertandingan->club2->nama }}</h5>
-                        <h5>Jumlah Tiket: {{ $transaksi->jumlah }}</h5>
+                        <h5>Jumlah Tiket:
+                            @for ($i = 1; $i <= $transaksi->jumlah; $i++)
+                                <img src="{{ asset('images/tiket.png') }}" alt="" width="30px">
+                            @endfor
+                        </h5>
                     </div>
                 </div>
                 <hr>
@@ -66,17 +70,17 @@
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id_transaksi" value="{{ $transaksi->id }}">
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label for="no_invoice">No. Invoice</label>
                             <input type="text" class="form-control" id="no_invoice" value="{{ $transaksi->no_invoice }}"
                                 readonly>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label for="no_invoice">Nominal Yang Harus Dibayar</label>
                             <input type="text" class="form-control" id="no_invoice"
                                 value="Rp. {{ number_format($transaksi->total_bayar, '0', '', '.') }}" readonly>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label>Upload Bukti Transfer</label>
                             <div class=" mb-3">
                                 <input type="file" id="file" name="bukti_bayar"
@@ -133,7 +137,7 @@
     </script>
 
     <script>
-        // Add the following code if you want the name of the file appear on select
+        // Tambah the following code if you want the name of the file appear on select
         $(".custom-file-input").on("change", function() {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);

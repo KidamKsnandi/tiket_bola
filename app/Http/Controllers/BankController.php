@@ -12,8 +12,8 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = Bank::all();
-        return view('admin.clubs.index', compact('banks'));
+        $banks = Bank::orderBy('created_at', 'desc')->get();
+        return view('admin.banks.index', compact('banks'));
     }
 
     /**
@@ -48,7 +48,7 @@ class BankController extends Controller
         }
         $bank->save();
 
-        return redirect()->route('bank.index')->with('status', 'Bank created successfully!');
+        return redirect()->route('bank.index')->with('success', 'Bank berhasil ditambah!');
     }
 
     /**
@@ -92,7 +92,7 @@ class BankController extends Controller
         }
         $bank->save();
 
-        return redirect()->route('bank.index')->with('status', 'Bank updated successfully!');
+        return redirect()->route('bank.index')->with('success', 'Bank berhasil diupdate!');
     }
 
     /**
@@ -100,8 +100,11 @@ class BankController extends Controller
      */
     public function destroy(Bank $bank)
     {
+        if (Bank::has('transaksi')->find($bank->id)) {
+            return back()->withErrors(['error' => 'Bank ini memiliki transaksi.'])->withInput();
+        }
         $bank->delete();
         $bank->deleteLogo();
-        return redirect()->route('bank.index')->with('status', 'Bank deleted successfully!');
+        return redirect()->route('bank.index')->with('success', 'Bank berhasil dihapus!');
     }
 }

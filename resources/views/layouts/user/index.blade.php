@@ -569,6 +569,31 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
     <script src="{{ asset('assets/user/js/gmaps.min.js') }}"></script>
     <script src="{{ asset('assets/user/js/main.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+    <script src="{{ asset('js/delete.js') }}"></script>
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        @if ($errors->any())
+            Swal.fire({
+                title: 'Error!',
+                html: '<ul>' +
+                    @foreach ($errors->all() as $error)
+                        '<li>{{ $error }}</li>' +
+                    @endforeach
+                '</ul>',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
 </body>
 
 </html>

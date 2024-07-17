@@ -3,20 +3,24 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Mail\InvoiceMail;
 use App\Models\Bank;
+use App\Models\Banner;
 use App\Models\Club;
 use App\Models\JadwalPertandingan;
 use App\Models\Tiket;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MainController extends Controller
 {
     public function welcome()
     {
+        $banner = Banner::orderBy('created_at', 'desc')->get();
         $jadwal = JadwalPertandingan::orderBy('created_at', 'asc')->take(4)->get();
-        return view("welcome", compact("jadwal"));
+        return view("welcome", compact("jadwal", "banner"));
     }
 
     public function jadwal(Request $request)
@@ -31,7 +35,7 @@ class MainController extends Controller
                 })
                 ->get();
         } else {
-            $jadwal = JadwalPertandingan::orderBy('created_at', 'asc')->get();
+            $jadwal = JadwalPertandingan::orderBy('created_at', 'desc')->get();
         }
         return view("user.jadwal", compact("jadwal"));
     }
@@ -55,14 +59,24 @@ class MainController extends Controller
     }
     public function transaksi($slug)
     {
-        $bank = Bank::all();
+        $bank = Bank::orderBy('created_at', 'desc')->get();
         $tiket = Tiket::where('slug', $slug)->first();
         return view('user.transaksi.checkout', compact('bank', 'tiket'));
     }
 
     public function checkout(Request $request, $slug)
     {
+
         $tiket = Tiket::where('slug', $slug)->first();
+        if ($request->jumlah_tiket > $tiket->kuota) {
+            return redirect()->back()->withErrors(['jumlah_tiket' => 'Jumlah tiket yang dibeli melebihi kuota tiket.'])->withInput();
+        }
+        if ($request->jumlah_tiket < 0) {
+            return redirect()->back()->withErrors(['jumlah_tiket' => 'Jumlah tiket harus positif.'])->withInput();
+        }
+        if ($request->no_hp < 0) {
+            return redirect()->back()->withErrors(['jumlah_tiket' => 'Jumlah tiket harus positif.'])->withInput();
+        }
         $transaksi = new Transaksi();
         $transaksi->id_user = Auth::user()->id;
         $transaksi->id_tiket = $tiket->id;
@@ -82,6 +96,18 @@ class MainController extends Controller
         $transaksiE = Transaksi::find($transaksi->id);
         $transaksiE->no_invoice = "INV-" . now()->timezone('Asia/Jakarta')->format('Ymd') . $transaksi->id . $tiket->id . $request->bank;
         $transaksiE->save();
+
+        $details = [
+            'nama' => Auth::user()->name,
+            'no_invoice' => $transaksiE->no_invoice,
+            'tiket' => $tiket->nama_tiket . " (" . $tiket->tribun . ") ",
+            "pertandingan" => $tiket->jadwal_pertandingan->club1->nama . "  vs " . $tiket->jadwal_pertandingan->club2->nama,
+            'jumlah' => $request->jumlah_tiket,
+            'total' => "Rp." . number_format($request->nominal, 0, '', '.'),
+
+        ];
+
+        Mail::to($request->email)->send(new InvoiceMail($details));
 
         return redirect("/user/invoice/" . $transaksiE->no_invoice);
     }
@@ -106,6 +132,10 @@ class MainController extends Controller
         }
         $transaksi->status = 2;
         $transaksi->save();
+
+        $tiket = Tiket::find($transaksi->id_tiket);
+        $tiket->kuota = $tiket->kuota - $transaksi->jumlah;
+        $tiket->save();
 
         return redirect('/user/tiket-saya');
     }

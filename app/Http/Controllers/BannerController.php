@@ -12,7 +12,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = Banner::all();
+        $banners = Banner::orderBy('created_at', 'desc')->get();
         return view("admin.banners.index", compact("banners"));
     }
 
@@ -35,7 +35,7 @@ class BannerController extends Controller
             'deskripsi' => 'required',
         ]);
 
-        $banner = new banner();
+        $banner = new Banner();
         $banner->nama = $validatedData['nama'];
         if ($request->hasFile('gambar')) {
             $image = $request->gambar;
@@ -46,7 +46,9 @@ class BannerController extends Controller
         $banner->deskripsi = $validatedData['deskripsi'];
         $banner->save();
 
-        return redirect()->route('banner.index')->with('status', 'Banner created successfully!');
+        session()->put('success', 'Data Berhasil ditambahkan');
+
+        return redirect()->route('banner.index')->with('success', 'Banner berhasil ditambah!');
     }
 
     /**
@@ -88,7 +90,7 @@ class BannerController extends Controller
         $banner->deskripsi = $validatedData['deskripsi'];
         $banner->save();
 
-        return redirect()->route('banner.index')->with('status', 'Banner updated successfully!');
+        return redirect()->route('banner.index')->with('success', 'Banner berhasil diupdate!');
     }
 
     /**
@@ -98,6 +100,6 @@ class BannerController extends Controller
     {
         $banner->delete();
         $banner->deleteGambar();
-        return redirect()->route('banner.index')->with('status', 'Banner deleted successfully!');
+        return redirect()->route('banner.index')->with('success', 'Banner berhasil dihapus!');
     }
 }

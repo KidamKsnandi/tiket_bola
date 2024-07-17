@@ -12,7 +12,7 @@ class ClubController extends Controller
      */
     public function index()
     {
-        $clubs = Club::all();
+        $clubs = Club::orderBy('created_at', 'desc')->get();
         return view('admin.clubs.index', compact('clubs'));
     }
 
@@ -30,7 +30,7 @@ class ClubController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|max:255',
+            'nama' => 'required|max:255|unique:clubs',
             'logo' => 'required|image|mimes:jpg,jpeg,png',
         ]);
 
@@ -44,7 +44,7 @@ class ClubController extends Controller
         }
         $club->save();
 
-        return redirect()->route('club.index')->with('status', 'Club created successfully!');
+        return redirect()->route('club.index')->with('success', 'Club berhasil ditambah!');
     }
 
     /**
@@ -69,7 +69,7 @@ class ClubController extends Controller
     public function update(Request $request, Club $club)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|max:255',
+            'nama' => 'required|max:255|unique:clubs,nama,' . $club->id,
             'logo' => 'nullable|image|mimes:jpg,jpeg,png',
         ]);
 
@@ -84,7 +84,7 @@ class ClubController extends Controller
         }
         $club->save();
 
-        return redirect()->route('club.index')->with('status', 'Club updated successfully!');
+        return redirect()->route('club.index')->with('success', 'Club berhasil diupdate!');
     }
 
     /**
@@ -92,7 +92,14 @@ class ClubController extends Controller
      */
     public function destroy(Club $club)
     {
+        if (Club::has('jadwal_pertandingan1')->find($club->id)) {
+            return back()->withErrors(['error' => 'Club ini memiliki jadwal pertandingan.'])->withInput();
+        }
+        if (Club::has('jadwal_pertandingan2')->find($club->id)) {
+            return back()->withErrors(['error' => 'Club ini memiliki jadwal pertandingan.'])->withInput();
+        }
+
         $club->delete();
-        return redirect()->route('club.index')->with('status', 'Club deleted successfully!');
+        return redirect()->route('club.index')->with('success', 'Club berhasil dihapus!');
     }
 }

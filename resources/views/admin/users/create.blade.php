@@ -1,9 +1,20 @@
 @extends('layouts.admin.index')
 
 @section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('pengguna.index') }}">Pengguna</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Tambah Pengguna</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
     <div class="card">
         <div class="card-header">
-            <h1>Create User</h1>
+            <h1>Tambah User</h1>
         </div>
         <div class="card-body">
             @if (session('success'))
@@ -44,7 +55,7 @@
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Create User</button>
+                <button type="submit" class="btn btn-primary">Tambah User</button>
             </form>
         </div>
     </div>
