@@ -64,7 +64,8 @@
                     <div class="mb-3">
                         <label for="jumlah_tiket" class="form-label">Jumlah Tiket</label>
                         <input type="number" class="form-control" id="jumlah_tiket" name="jumlah_tiket"
-                            value="{{ old('jumlah_tiket') }}" placeholder="Masukkan jumlah tiket" required>
+                            onkeyup="totalBayar()" value="{{ old('jumlah_tiket', 0) }}" placeholder="Masukkan jumlah tiket"
+                            required>
                     </div>
                     <div class="mb-3">
                         <label for="nominal" class="form-label">Nominal</label>
@@ -72,7 +73,7 @@
                             <span class="input-group-text">Rp.</span>
                             <input type="text" class="form-control" id="rupiah"
                                 value="{{ number_format($tiket->harga, 0, '.', '.') }}" onkeyup="totalBayar()"
-                                placeholder="Masukkan nominal" required>
+                                placeholder="Masukkan nominal" required readonly>
                             <input type="hidden" name="nominal" id="nominal">
                         </div>
                     </div>
@@ -105,13 +106,18 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="d-flex justify-content-between">
-                        <div id="viewTotal" style="display: none">
-                            <h2>Total :
-                                <span id="totalPembayaran"></span>
-                            </h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="viewTotal" style="display: none">
+                                <h2>Total :
+                                    <span id="totalPembayaran"></span>
+                                </h2>
+                            </div>
                         </div>
-                        <button type="submit" class="primary-btn">Beli Sekarang</button>
+                        <div class="col-md-6">
+
+                            <button type="submit" class="primary-btn w-100">Beli Sekarang</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -164,10 +170,11 @@
 
         function totalBayar() {
             let nominal = document.getElementById('rupiah').value
+            let jumlah = document.getElementById('jumlah_tiket').value
             nominal = nominal.replace(/\./g, '');
             let kodeUnik = document.getElementById('kodeUnik').value;
             console.log('nominal', nominal)
-            const total = parseInt(nominal) + parseInt(kodeUnik)
+            const total = (parseInt(nominal) * parseInt(jumlah)) + parseInt(kodeUnik)
             document.getElementById('viewTotal').style.display = "block"
             document.getElementById('totalPembayaran').innerHTML = rp(total)
             document.getElementById('nominal').value = total

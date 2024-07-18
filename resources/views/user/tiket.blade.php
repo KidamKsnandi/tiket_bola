@@ -49,7 +49,7 @@
                             </li>
                             <li><a href="#"><span>Alamat</span> : {{ $jadwal->stadion->alamat }}</a></li>
                         </ul>
-                        <h2 class="mt-4 text-center animate-grow-shrink">
+                        <h2 style="font-size: 20px" class="mt-4 text-center animate-grow-shrink">
                             @if (now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s') > $jadwal->tanggal_tanding)
                                 {{ \Carbon\Carbon::parse($jadwal->tanggal_tanding)->translatedFormat('d F Y \p\u\k\u\l H:i') }}
                                 - <span class="text-danger"> Pertandingan telah selesai </span>
